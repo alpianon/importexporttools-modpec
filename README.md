@@ -13,7 +13,9 @@ For the above reason, the remainder of this README file is in Italian language, 
 ## A cosa serve?
 Questo MOD nasce aggiunge all'addon importexporttools delle funzionalità che aiutano l'utente a fare il backup dei messaggi di PEC in modo da poterne provare in futuro l'autenticità, nel rispetto della privacy e della riservatezza della corrispondenza. Per saperne di più, leggete più avanti il paragrafo relativo agli aspetti legali.
 
-**ATTENZIONE** Questo MOD è ancora work-in-progress, non è ancora stato testato in produzione in modo adeguato, ed è inteso unicamente come applicazione da provare in ambienti di test e sviluppo. Si declina qualsiasi responsabilità per qualsiasi uso in produzione e a fini professionali.
+* **NOTA**: Come ulteriore funzionalità aggiunta, questo MOD consente di scegliere, nelle opzioni di importexporttools, di **tagliare il percorso completo dei file esportati a 140 caratteri** invece che "solo" a 256 caratteri; questo perchè, se nella generalità dei filesystem il limite è 256 caratteri, quando si usa Ecryptfs (tipicamente, se si sceglie di avere la cartella home cifrata in Ubuntu) il limite è di fatto 140 caratteri, come spiegato meglio [qui](https://unix.stackexchange.com/questions/32795/what-is-the-maximum-allowed-filename-and-folder-size-with-ecryptfs)). Con questa opzione, è possibile salvare i messaggi da importexporttools anche in una cartella cifrata con Ecryptfs senza incorrere nell'errore `NS_ERROR_FILE_NAME_TOO_LONG` se l'oggetto dell'email (dal quale importexporttools genera il nome del file) è troppo lungo.
+
+**ATTENZIONE Questo MOD è ancora work-in-progress, non è ancora stato testato in produzione in modo adeguato, ed è inteso unicamente come applicazione da provare in ambienti di test e sviluppo. Si declina qualsiasi responsabilità per qualsiasi uso in produzione e a fini professionali.**
 
 ## Installazione
 **Importante: se avete importexporttools (versione originale) installato, dovete disinstallarlo, prima di installare questo MOD.**
