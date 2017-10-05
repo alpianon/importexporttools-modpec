@@ -34,7 +34,7 @@ All'interno di questa cartella, alla fine dell'esportazione, troverete una sotto
 
 Durante l'esportazione dei messaggi di PEC, viene anche effettuata una **verifica della firma digitale del provider di PEC (Aruba, Legalmail, ecc.)** all'interno di ciascun messaggio: se la firma di alcuni messaggi non è valida o è scaduta, alla fine dell'esportazione viene visualizzato un messaggio di errore, con indicazione di guardare, per i dettagli, il file `errori_verifica_PEC.txt` nella cartella di esportazione. 
 
-  * **Attenzione**: nel caso vengano rilevati degli errori su alcuni messaggi esportati, la lista degli hash viene comunque generata; ma l'operazione di firma digitale e marcatura temporale su tale lista non ha alcun valore/senso dal punto di vista legale, o meglio non ne ha relativamente ai messaggi sui quali sono stati rilevati degli errori.
+  * **Attenzione**: nel caso vengano rilevati degli errori su alcuni messaggi esportati, la lista degli hash viene comunque generata; ma l'operazione di firma digitale e marcatura temporale su tale lista non ha alcun valore/senso dal punto di vista legale, o meglio non ne ha relativamente ai messaggi sui quali sono stati rilevati degli errori (vd. sempre più avanti il paragrafo relativo agli aspetti legali).
 
 ## Aspetti legali relativi al backup dei messaggi di PEC 
 ### Perchè, nel caso dei messaggi di PEC, un backup "tradizionale" non basta?
