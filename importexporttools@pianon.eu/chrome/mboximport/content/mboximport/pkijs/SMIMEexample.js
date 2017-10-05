@@ -16,8 +16,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-(function () {
-	'use strict';
+//(function () {
+//	'use strict';
 
 	//**************************************************************************************
 	/**
@@ -27257,19 +27257,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 	//*********************************************************************************
 	//endregion
 	//*********************************************************************************
-	context("Hack for Rollup.js", function () {
-		return;
+	//context("Hack for Rollup.js", function () {
+	//	return;
 
-		verifySMIME();
-		handleMIMEFile();
-		handleCABundle();
-		setEngine();
-	});
+	//	verifySMIME();
+	//	handleMIMEFile();
+	//	handleCABundle();
+	//	setEngine();
+	//});
 	//*********************************************************************************
 
-	window.verifySMIME = verifySMIME;
-	window.handleMIMEFile = handleMIMEFile;
-	window.handleCABundle = handleCABundle;
+	//window.verifySMIME = verifySMIME;
+	//window.handleMIMEFile = handleMIMEFile;
+	//window.handleCABundle = handleCABundle;
 
-	function context(name, func) {}
-})();
+	//function context(name, func) {}
+//})();
