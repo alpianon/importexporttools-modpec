@@ -11,7 +11,7 @@ xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 		<em:description>Adds tools to export/import messages and folders (with PEC backup option)</em:description>
 		<em:creator>Paolo Kaosmos (mod by Alberto Pianon)</em:creator>
 		<em:optionsURL>chrome://mboximport/content/mboximportOptions.xul</em:optionsURL>
-		<em:homepageURL>https://github.com/alpianon/importexporttools_modPEC</em:homepageURL>
+		<em:homepageURL>https://github.com/alpianon/importexporttools-modpec</em:homepageURL>
 		<em:file>
 			<Description about="urn:mozilla:extension:file:mboximport.jar">
 				<em:package>content/mboximport/</em:package>
