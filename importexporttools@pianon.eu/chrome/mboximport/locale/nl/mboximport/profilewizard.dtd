@@ -1,0 +1,13 @@
+<!ENTITY intro1 "Dit is een experimentele procedure voor het importeren van een profiel. Er is geen kans op gegevensverlies, maar er is geen garantie dat alles werkt naar verwachting, vooral als u een profiel van een andere computer importeert. Het is in ieder geval veiliger dan de bestanden handmatig kopiëren.">
+<!ENTITY profilePath "Pad naar te importeren profiel">
+<!ENTITY browse "Bladeren">
+<!ENTITY profileName "Naam van te importeren profiel">
+<!ENTITY changeProfileNameLabel "U kunt altijd de profielnaam in de profielbeheerder wijzigen">
+<!ENTITY intro2 "De map bevat een geldig profiel dat kan worden geïmporteerd. Tijdens de procedure kunt u het programma mogelijk enkele minuten niet gebruiken.">
+<!ENTITY start "Importeren starten">
+<!ENTITY importRunning "Importeren…">
+<!ENTITY importEnd "Importeren succesvol afgerond!">
+<!ENTITY intro3 "Start om het geïmporteerde profiel te benaderen de profielbeheerder door op onderstaande knop te klikken. Het huidige profiel wordt automatisch gesloten.">
+<!ENTITY runProfileManager "Profielbeheerder starten">
+<!ENTITY title "ImportExportTools - Profiel importeren">
+<!ENTITY error "Er is een fout opgetreden bij het importeren van het profiel. Foutdetails:">

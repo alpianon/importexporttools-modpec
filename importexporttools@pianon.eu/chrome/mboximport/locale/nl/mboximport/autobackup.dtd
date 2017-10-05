@@ -1,0 +1,29 @@
+<!ENTITY dialog.title "ImportExportTools - Back-up">
+<!ENTITY description1 "Datum laatste back-up: $t">
+<!ENTITY description2 "Op basis van uw instellingen is het nodig nu een back-up te maken.">
+<!ENTITY description3 "Tijdens deze back-up is het mogelijk dat het programma gedurende een paar minuten niet reageert.">
+<!ENTITY description4 "Wilt u doorgaan?">
+<!ENTITY description5 "Back-up wordt uitgevoerd… een ogenblik geduld.">
+<!ENTITY description6 "Back-up is klaar.">
+<!ENTITY backupTab "Back-upschema">
+<!ENTITY backupSettings "Back-upinstellingen">
+<!ENTITY backupOn "Inschakelen">
+<!ENTITY backupFreq "Frequentie">
+<!ENTITY day1 "1 dag">
+<!ENTITY day3 "3 dagen">
+<!ENTITY day7 "7 dagen">
+<!ENTITY day15 "15 dagen">
+<!ENTITY day30 "30 dagen">
+<!ENTITY backupDestination "Doel">
+<!ENTITY backupFolderName "Mapnaam voor back-up">
+<!ENTITY autoName "Automatisch (mapnaam + datum)">
+<!ENTITY customName "Aangepast">
+<!ENTITY backupType "Back-upinhoud">
+<!ENTITY allFiles "Alle profielbestanden">
+<!ENTITY justMailFiles "Alleen mailbestanden">
+<!ENTITY lastBackup "Laatste back-up">
+<!ENTITY allFilesMode "Altijd alle bestanden">
+<!ENTITY newFilesMode "Alleen bestanden die zijn gewijzigd sinds laatste back-up">
+<!ENTITY save "Opslaan">
+<!ENTITY modal "‘Modaal’ venster gebruiken">
+<!ENTITY MACwarning "N.B.: sluit alle overige vensters voordat u doorgaat.">
