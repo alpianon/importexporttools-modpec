@@ -70,7 +70,9 @@
 <!ENTITY addPrefix "Voorvoegsel toevoegen">
 <!ENTITY fileLenCaption "Bestandsnaamlengte">
 <!ENTITY cutSub "Onderwerpregel afbreken bij 50 karakters">
-<!ENTITY cutFN "Lengte volledig bestandspad afbreken bij 256 karakters">
+<!ENTITY cutFN "Lengte volledig bestandspad afbreken bij">
+<!ENTITY at256 "256 karakters">
+<!ENTITY at140 "140 karakters (Ecryptfs Ubuntu home)">
 <!ENTITY sdMBOX "Mbox (nieuw)">
 <!ENTITY sdMBOX2 "Mbox (toevoegen)">
 <!ENTITY asMBOX "als Mbox-bestand (nieuw)">

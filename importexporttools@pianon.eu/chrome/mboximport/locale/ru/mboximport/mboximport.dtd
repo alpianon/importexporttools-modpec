@@ -70,7 +70,9 @@
 <!ENTITY addPrefix "Добавить префикс">
 <!ENTITY fileLenCaption "Длина имени файла">
 <!ENTITY cutSub "Усечь тему до 50 символов">
-<!ENTITY cutFN "Усечь длину полного пути до 256 символов">
+<!ENTITY cutFN "Усечь длину полного пути до">
+<!ENTITY at256 "256 символов">
+<!ENTITY at140 "140 символов (Ecryptfs Ubuntu home)">
 <!ENTITY sdMBOX "Mbox (новый)">
 <!ENTITY sdMBOX2 "Mbox (добавление)">
 <!ENTITY asMBOX "как mbox файл (новый)">

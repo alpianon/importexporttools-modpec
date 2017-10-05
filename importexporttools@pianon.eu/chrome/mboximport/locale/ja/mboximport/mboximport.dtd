@@ -70,7 +70,9 @@
 <!ENTITY addPrefix "接頭文字として追加：">
 <!ENTITY fileLenCaption "ファイル名の長さ">
 <!ENTITY cutSub "件名を 50 文字でカット">
-<!ENTITY cutFN "ファイルパスを 256 文字でカット">
+<!ENTITY cutFN "ファイルパスを">
+<!ENTITY at256 "256 文字でカット">
+<!ENTITY at140 "140 文字でカット (Ecryptfs Ubuntu home)">
 <!ENTITY sdMBOX "mbox (新規)">
 <!ENTITY sdMBOX2 "mbox (追加)">
 <!ENTITY asMBOX "mbox ファイルとして (新規)">

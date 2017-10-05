@@ -70,7 +70,9 @@
 <!ENTITY addPrefix "Add prefix">
 <!ENTITY fileLenCaption "Filenames length">
 <!ENTITY cutSub "Cut subject at 50 characters">
-<!ENTITY cutFN "Cut complete file path length at 256 characters">
+<!ENTITY cutFN "Cut complete file path length:">
+<!ENTITY at256 "at 256 characters">
+<!ENTITY at140 "at 140 characters (Ecryptfs Ubuntu home)">
 <!ENTITY sdMBOX "Mbox (new)">
 <!ENTITY sdMBOX2 "Mbox (append)">
 <!ENTITY asMBOX "as Mbox file (new)">

@@ -70,7 +70,9 @@
 <!ENTITY addPrefix "Präfix hinzufügen">
 <!ENTITY fileLenCaption "Dateinamenlänge">
 <!ENTITY cutSub "Betreff nach 50 Zeichen abschneiden">
-<!ENTITY cutFN "Vollständigen Dateipfad nach 256 Zeichen abschneiden">
+<!ENTITY cutFN "Vollständigen Dateipfad:">
+<!ENTITY at256 "nach 256 Zeichen abschneiden">
+<!ENTITY at140 "nach 140 Zeichen abschneiden (Ecryptfs Ubuntu home)">
 <!ENTITY sdMBOX "Mbox">
 <!ENTITY sdMBOX2 "Mbox (hinzufügen)">
 <!ENTITY asMBOX "als Mbox-Datei (neu)">

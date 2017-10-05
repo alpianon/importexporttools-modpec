@@ -70,7 +70,9 @@
 <!ENTITY addPrefix "Előtag hozzáadása">
 <!ENTITY fileLenCaption "Fájlnév hossza">
 <!ENTITY cutSub "Tárgy hosszának levágása 50 karakterre">
-<!ENTITY cutFN "Teljes fájlnév hosszának levágása 256 karakterre">
+<!ENTITY cutFN "Teljes fájlnév hosszának levágása">
+<!ENTITY at256 "256 karakterre">
+<!ENTITY at140 "140 karakterre (Ecryptfs Ubuntu home)">
 <!ENTITY sdMBOX "MBOX (új)">
 <!ENTITY sdMBOX2 "MBOX (hozzáfűzés)">
 <!ENTITY asMBOX "mint az MBOX fájlt (új)">
