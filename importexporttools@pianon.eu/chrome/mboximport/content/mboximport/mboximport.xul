@@ -8,6 +8,12 @@
 <script type="application/x-javascript" src="chrome://mboximport/content/menufunctions.js" />
 <script type="application/x-javascript" src="chrome://mboximport/content/utils.js" />
 
+<script type="application/x-javascript" src="chrome://mboximport/content/pkijs/addressparser.js" />
+<script type="application/x-javascript" src="chrome://mboximport/content/pkijs/mimefuncs.js" />
+<script type="application/x-javascript" src="chrome://mboximport/content/pkijs/mimeparser-tzabbr.js" />
+<script type="application/x-javascript" src="chrome://mboximport/content/pkijs/mimeparser.js" />
+<script type="application/x-javascript" src="chrome://mboximport/content/pkijs/SMIMEexample.js" />
+
 <stringbundleset id="stringbundleset">
 	<stringbundle id="backupStr" src="chrome://mboximport/locale/autobackup.properties"/>
 </stringbundleset>
@@ -26,6 +32,7 @@
 			<menu label="&allMsgsFolder;" id="exportALLMSG">
 				<menupopup>
 					<menuitem id="allAsEML" label="&asEML;"  oncommand="exportAllMsgs(0)" />
+          <menuitem id="allAsPEC" label="&asPEC;"  oncommand="exportAllMsgs(10)" />
 					<menuitem id="allAsHTML" label="&asHTML;"  oncommand="exportAllMsgs(1)" />
 					<menuitem id="allAsHTMLatt" label="&asHTML; &withattach;"  oncommand="exportAllMsgs(8)" />
 					<menuitem id="allAsTXT" label="&asTXT;"  oncommand="exportAllMsgs(2)" />
@@ -69,6 +76,7 @@
 	<observes element="printMenuItem" attribute="disabled" />
 		<menupopup>
 			<menuitem id="selAsEML" label="&asEML;"  oncommand="exportSelectedMsgs(0)" />
+      <menuitem id="selAsPEC" label="&asPEC;"  oncommand="exportSelectedMsgs(10)" />
 			<menuitem id="selAsHTML" label="&asHTML;"  oncommand="exportSelectedMsgs(1)" />
 			<menuitem id="selAsHTMLatt" label="&asHTML; &withattach;"  oncommand="exportSelectedMsgs(8)" />
 			<menuitem id="selAsTXT" label="&asTXT;"  oncommand="exportSelectedMsgs(2)" />
@@ -118,6 +126,7 @@
 			<menu label="&allMsgsFolder;" id="exportALLMSG3">
 				<menupopup>
 					<menuitem id="allAsEML3" label="&asEML;"  oncommand="exportAllMsgs(0)" />
+          <menuitem id="allAsPEC3" label="&asPEC;"  oncommand="exportAllMsgs(10)" />
 					<menuitem id="allAsHTML3" label="&asHTML;"  oncommand="exportAllMsgs(1)" />
 					<menuitem id="allAsHTML3att" label="&asHTML; &withattach;"  oncommand="exportAllMsgs(8)" />
 					<menuitem id="allAsTXT3" label="&asTXT;"  oncommand="exportAllMsgs(2)" />
@@ -183,6 +192,7 @@
 			<menu label="&allMsgsFolder;" id="exportALLMSG2">
 				<menupopup>
 					<menuitem id="allAsEML2" label="&asEML;"  oncommand="exportAllMsgs(0)" />
+          <menuitem id="allAsPEC2" label="&asPEC;"  oncommand="exportAllMsgs(10)" />
 					<menuitem id="allAsHTML2" label="&asHTML;"  oncommand="exportAllMsgs(1)" />
 					<menuitem id="allAsHTML2att" label="&asHTML; &withattach;"  oncommand="exportAllMsgs(8)" />
 					<menuitem id="allAsTXT2" label="&asTXT;"  oncommand="exportAllMsgs(2)" />
@@ -246,6 +256,7 @@
 	<menu label="&saveSelected;" id="multipleSaveContext" insertbefore="threadPaneContext-sep-afterMarkMenu">
 		<menupopup>
 			<menuitem id="selAsEMLContext" label="&asEML;"  oncommand="exportSelectedMsgs(0)" />
+      <menuitem id="selAsPECContext" label="&asPEC;"  oncommand="exportSelectedMsgs(10)" />
 			<menuitem id="selAsHTMLContext" label="&asHTML;"  oncommand="exportSelectedMsgs(1)" />
 			<menuitem id="selAsHTMLContextAtt" label="&asHTML; &withattach;"  oncommand="exportSelectedMsgs(8)" />
 			<menuitem id="selAsTXTContext" label="&asTXT;"  oncommand="exportSelectedMsgs(2)" />
@@ -284,6 +295,7 @@
 	<menu label="&saveSelected;" id="multipleSaveContext" insertbefore="threadPaneContext-sep-afterMarkMenu">
 		<menupopup>
 			<menuitem id="selAsEMLContext" label="&asEML;"  oncommand="exportSelectedMsgs(0)" />
+      <menuitem id="selAsPECContext" label="&asPEC;"  oncommand="exportSelectedMsgs(10)" />
 			<menuitem id="selAsHTMLContext" label="&asHTML;"  oncommand="exportSelectedMsgs(1)" />
 			<menuitem id="selAsHTMLContextAtt" label="&asHTML; &withattach;"  oncommand="exportSelectedMsgs(8)" />
 			<menuitem id="selAsTXTContext" label="&asTXT;"  oncommand="exportSelectedMsgs(2)" />
@@ -321,4 +333,3 @@
 </statusbar>
 
 </overlay>
-

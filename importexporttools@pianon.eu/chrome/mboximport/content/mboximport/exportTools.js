@@ -16,6 +16,68 @@ var IETglobalMsgFoldersExported;
 var IETglobalFile;
 var IETabort;
 
+// modPEC: global object to create hash list of exported messages
+var IEThashList = {
+  file: null,
+  total: 0,
+  hashListArray: [],
+  push: function(item) {
+    this.hashListArray.push(item);
+    if(this.hashListArray.length == this.total) {
+      this.hashListArray.sort(function(a,b){return a["filename"]>b["filename"]});
+      listWithFilenames = "";
+      listWithNoFilenames = "";
+      for(var i=0; i < this.hashListArray.length; i++){
+        listWithFilenames += this.hashListArray[i]["hash"]+"  "+this.hashListArray[i]["filename"]+"\n";
+        listWithNoFilenames += this.hashListArray[i]["hash"]+"\n";
+      }
+      // save hash list with filenames
+      this.listWithFilenamesFile = this.file.clone();
+      this.listWithFilenamesFile.append(mboximportbundle.GetStringFromName("HashListWithFilenamesFilename"));
+      this.listWithFilenamesFile.createUnique(0,0644);
+      IETwriteDataOnDisk(this.listWithFilenamesFile,listWithFilenames,false,null,null);
+      // save hash list
+      this.listWithNoFilenamesFile = this.file.clone();
+      this.listWithNoFilenamesFile.append(mboximportbundle.GetStringFromName("HashListFilename"));
+      this.listWithNoFilenamesFile.createUnique(0,0644);
+      IETwriteDataOnDisk(this.listWithNoFilenamesFile,listWithNoFilenames,false,null,null);
+
+      this.hashListArray = [];
+      this.total = 0;
+      this.file = null;
+    }
+  }
+};
+
+// modPEC: global object to create error list for SMIME verification
+var IETSMIMEcheck = {
+  file: null,
+  total: 0,
+  SMIMEcheckArray: [],
+  push: function(item) {
+    this.SMIMEcheckArray.push(item);
+    if(this.SMIMEcheckArray.length == this.total){
+      var errorList = "";
+      for(var i=0; i < this.SMIMEcheckArray.length; i++){
+        if(this.SMIMEcheckArray[i].result !== true){
+          errorList += this.SMIMEcheckArray[i].filename+"\n"+this.SMIMEcheckArray[i].result+"\n\n";
+        }
+      }
+      if (errorList){
+        setTimeout(function() { alert(mboximportbundle.GetStringFromName("SMIMEverificationFailed")); }, 1);
+        this.file.append(mboximportbundle.GetStringFromName("SMIMEerrorsFilename"));
+        this.file.createUnique(0,0644);
+        IETwriteDataOnDisk(this.file,errorList,false,null,null);
+      } else {
+        setTimeout(function() { alert(mboximportbundle.GetStringFromName("SMIMEverificationSuccess")); }, 1);
+      }
+      this.total = 0;
+      this.SMIMEcheckArray = [];
+    }
+  }
+}
+
+
 if (String.trim)
 	Components.utils.import("resource:///modules/gloda/mimemsg.js");
 
@@ -85,6 +147,7 @@ function exportSelectedMsgs(type) {
 	7 = CSV (with body)
 	8 = HTML with attachments
 	9 = Plain Text with attachments
+	10 = EML with hash list and SMIME verification (modPEC)
 	*/
 	
 	var needIndex = false;
@@ -175,7 +238,7 @@ function exportSelectedMsgs(type) {
 			exportAsHtml(msguri,emlsArray,file,true,false,false,false,null,null,null);
 			break;
 		case 3:
-			saveMsgAsEML(msguri,file,true,emlsArray,null,null,false,false,null,null);
+			saveMsgAsEML(msguri,file,true,emlsArray,null,null,false,false,null,null,false);
 			break;
 		case 4:
 			if (isMbox(file) != 1) {
@@ -183,7 +246,7 @@ function exportSelectedMsgs(type) {
 				alert(string);
 				return;
 			}
-			saveMsgAsEML(msguri,file,true,emlsArray,null,null,false,false,null,null);
+			saveMsgAsEML(msguri,file,true,emlsArray,null,null,false,false,null,null,false);
 			break;
 		case 5:
 			var hdrArray = IETemlArray2hdrArray(emlsArray, false, file);
@@ -203,8 +266,22 @@ function exportSelectedMsgs(type) {
 		case 9:
 			exportAsHtml(msguri,emlsArray,file,true,false,false,false,null,null,null, true);
 			break;
+		case 10: //modPEC: export selected messages with hash list and SMIME verification
+			IEThashList.total = IETtotal;
+			IETSMIMEcheck.total = IETtotal;
+			var backupPECdir = file.clone();
+			var datedir = buildContainerDirName();
+			backupPECdir.append("Backup_PEC_"+datedir);
+			backupPECdir.create(1, 0755);
+			IEThashList.file = backupPECdir.clone();
+			IETSMIMEcheck.file = backupPECdir.clone();
+			var backupPECmsgDir = backupPECdir.clone();
+			backupPECmsgDir.append(IETmesssubdir);
+			backupPECmsgDir.create(1, 0755);
+			saveMsgAsEML(msguri,backupPECmsgDir,false,emlsArray,null,null,false,false,null,null,true);
+			break;
 		default:
-			saveMsgAsEML(msguri,file,false,emlsArray,null,null,false,false,null,null);
+			saveMsgAsEML(msguri,file,false,emlsArray,null,null,false,false,null,null,false);
 	} 
 
 	if (needIndex) {
@@ -336,7 +413,7 @@ function exportAllMsgsDelayedVF(type,file,msgFolder) {
 	var datedir = buildContainerDirName();
 	var useContainer = IETprefs.getBoolPref("extensions.importexporttools.export.use_container_folder");
 
-	if (useContainer) {
+	if (useContainer || type == 10) { //modPEC
 		// Check if the name is good or exists alredy another directory with the same name
 		var filetemp = file.clone();
 		if (mustcorrectname)
@@ -425,7 +502,7 @@ function exportAllMsgsDelayed(type,file,msgFolder) {
 	var skipExistingMsg = IETprefs.getBoolPref("extensions.importexporttools.export.skip_existing_msg");
 	var ext = IETgetExt(type);
 
-	if (useContainer) {	
+	if (useContainer || type == 10) { //modPEC
 		// Check if the name is good or exists alredy another directory with the same name
 		var filetemp = file.clone();
 		if (mustcorrectname)
@@ -467,7 +544,7 @@ function exportAllMsgsDelayed(type,file,msgFolder) {
 		msg = msg.QueryInterface(Components.interfaces.nsIMsgDBHdr);
 		var tempExists = false;
 
-		if (! useContainer && skipExistingMsg) {			
+		if (! useContainer && skipExistingMsg && type != 10) { //modPEC
 			var sog = getSubjectForHdr(msg,subfile.path);
 			var tempFile = subfile.clone();
 			tempFile.append(sog+ext);
@@ -537,8 +614,15 @@ function IETrunExport(type,subfile,hdrArray,file2,msgFolder) {
 		case 9:  // plain text format, with index and attachments
 			exportAsHtml(firstUri,null,subfile,true,true,false,false,hdrArray,file2,msgFolder, true);
 			break;
+		case 10: //modPEC: export all messages with hash list and SMIME verification
+			IEThashList.total = IETtotal;
+			IETSMIMEcheck.total = IETtotal;
+			IEThashList.file = file2.clone();
+			IETSMIMEcheck.file = file2.clone();
+			saveMsgAsEML(firstUri,subfile,false,null,hdrArray,null,false, false, file2,msgFolder,true);
+			break;
 		default: // EML format, with index
-			saveMsgAsEML(firstUri,subfile,false,null,hdrArray,null,false, false, file2,msgFolder);
+			saveMsgAsEML(firstUri,subfile,false,null,hdrArray,null,false, false, file2,msgFolder,false);
 	}
 	if (type != 3 && type !=5 && type !=6) {
 		document.getElementById("IETabortIcon").collapsed = false;  
@@ -729,7 +813,7 @@ function createIndexCSV(type, file2, hdrArray, msgFolder, addBody) {
 	IETwriteDataOnDiskWithCharset(clone2,data,false,null,null);
 }
 
-function saveMsgAsEML(msguri,file,append,uriArray,hdrArray,fileArray,imapFolder,clipboard,file2,msgFolder) {
+function saveMsgAsEML(msguri,file,append,uriArray,hdrArray,fileArray,imapFolder,clipboard,file2,msgFolder,pec) {
     var myEMLlistner = {
 	   
 		scriptStream : null,
@@ -792,6 +876,24 @@ function saveMsgAsEML(msguri,file,append,uriArray,hdrArray,fileArray,imapFolder,
 				clone.append(sub+".eml");
 				clone.createUnique(0,0644);
 				var time = (hdr.dateInSeconds)*1000;
+
+				// modPEC: calculate file hash...
+				if(pec){
+					sha256(data).then(function(digest){
+  						IEThashList.push({
+							filename: sub+".eml",
+							hash: digest
+						});
+					});
+				// modPEC: ...and verify if it's a valid SMIME message
+					verifySMIME(data).then(function(result){
+						IETSMIMEcheck.push({
+							filename: sub+".eml",
+							result: result,
+						});
+					});
+				}
+
 				IETwriteDataOnDisk(clone,data,false,null,time);
 				// myEMLlistener.file2 exists just if we need the index
 				if (myEMLlistner.file2) {
@@ -829,7 +931,7 @@ function saveMsgAsEML(msguri,file,append,uriArray,hdrArray,fileArray,imapFolder,
 				var nextUri = parts[5];
 				var nextFile = file;
 			}
-			saveMsgAsEML(nextUri,nextFile,append,uriArray,hdrArray,fileArray,imapFolder,false,file2,msgFolder);
+			saveMsgAsEML(nextUri,nextFile,append,uriArray,hdrArray,fileArray,imapFolder,false,file2,msgFolder,pec);
 		}
 		else {
 			if (myEMLlistner.file2)
@@ -1288,7 +1390,7 @@ function exportVirtualFolderDelayed(msgFolder) {
 		var msguri = gDBView.getURIForViewIndex(i);
 		uriArray.push(msguri);
 	}
-	saveMsgAsEML(uriArray[0],clone,true,uriArray,null,null,false,false,null,null);
+	saveMsgAsEML(uriArray[0],clone,true,uriArray,null,null,false,false,null,null,false);
 }		
 
 
@@ -1329,7 +1431,7 @@ function exportIMAPfolder(msgFolder,destdirNSIFILE) {
 	}
 	IETwritestatus(mboximportbundle.GetStringFromName("exportstart")); 
 	if (IETtotal > 0) 
-		saveMsgAsEML(uriArray[0], clone,true,uriArray,null,null,true,false,null,null);
+		saveMsgAsEML(uriArray[0], clone,true,uriArray,null,null,true,false,null,null,false);
 }
 
 function IETwritestatus(text) {
@@ -1612,8 +1714,3 @@ function IETstoreBody(msguri) {
 	IETwritestatus(mboximportbundle.GetStringFromName("exported")+" "+IETexported+" "+mboximportbundle.GetStringFromName("msgs")+" "+(IETtotal+IETskipped));
 	return text;
 }
-
-
-
-
-	

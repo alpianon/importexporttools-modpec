@@ -6,6 +6,10 @@
 // type 3 = TEXT (one file)
 // type 4 = MBOX (new)
 // type 5 = MBOX (append)
+// type 6 = CSV
+// type 7 = EML with hash list and SMIME verification (modPEC)
+
+var IETmesssubdir = mboximportbundle.GetStringFromName("messsubdir");
 
 function SDexportMsg() {
 	if (typeof gSearchView  == "undefined")
@@ -98,10 +102,10 @@ function SDexportMsg() {
 		var now = new Date;
 		var filename = now.getFullYear().toString() + (now.getMonth()+1).toString() + now.getDate().toString() + "_mbox";
 		file.append(filename);
-		saveMsgAsEML(msguri,file,true,emlsArray,null,null,false,false,null,null);
+		saveMsgAsEML(msguri,file,true,emlsArray,null,null,false,false,null,null,false);
 	}
 	else if (type == 5)
-		saveMsgAsEML(msguri,file,true,emlsArray,null,null,false,false,null,null);
+		saveMsgAsEML(msguri,file,true,emlsArray,null,null,false,false,null,null,false);
 	else if (type == 6) {
 		var hdrArray = [];
 		for (var k=0;k<emlsArray.length;k++) {
@@ -113,8 +117,22 @@ function SDexportMsg() {
 		}
 		createIndexCSV(7, file, hdrArray, null, true);	
 	}
+	else if (type == 7) { //modPEC
+		IEThashList.total = IETtotal;
+		IETSMIMEcheck.total = IETtotal;
+		var backupPECdir = file.clone();
+		var datedir = buildContainerDirName();
+		backupPECdir.append("Backup_PEC_"+datedir);
+		backupPECdir.create(1, 0755);
+		IEThashList.file = backupPECdir.clone();
+		IETSMIMEcheck.file = backupPECdir.clone();
+		var backupPECmsgDir = backupPECdir.clone();
+		backupPECmsgDir.append(IETmesssubdir);
+		backupPECmsgDir.create(1, 0755);
+		saveMsgAsEML(msguri,backupPECmsgDir,false,emlsArray,null,null,false,false,null,null,true);
+	}
 	else
-		saveMsgAsEML(msguri,file,false,emlsArray,null,null,false,false,null,null);
+		saveMsgAsEML(msguri,file,false,emlsArray,null,null,false,false,null,null,false);
 }
 
 

@@ -7,6 +7,12 @@
 <script type="application/x-javascript" src="chrome://mboximport/content/utils.js" />
 <script type="application/x-javascript" src="chrome://mboximport/content/sdOverlay.js" />
 
+<script type="application/x-javascript" src="chrome://mboximport/content/pkijs/addressparser.js" />
+<script type="application/x-javascript" src="chrome://mboximport/content/pkijs/mimefuncs.js" />
+<script type="application/x-javascript" src="chrome://mboximport/content/pkijs/mimeparser-tzabbr.js" />
+<script type="application/x-javascript" src="chrome://mboximport/content/pkijs/mimeparser.js" />
+<script type="application/x-javascript" src="chrome://mboximport/content/pkijs/SMIMEexample.js" />
+
 <vbox insertbefore="status-bar" collapsed="true">
 	<hbox>
 	<vbox>
@@ -34,6 +40,7 @@
 			<menuitem id="mbox" label="&sdMBOX;" />
 			<menuitem id="mbox2" label="&sdMBOX2;" />
 			<menuitem id="csv" label="&asCSV;" />
+      <menuitem label="&sdPEC;"/>
 		</menupopup>
 	</menulist>
 	</hbox>
@@ -41,4 +48,3 @@
 	</hbox>
 </vbox>
 </overlay>
-

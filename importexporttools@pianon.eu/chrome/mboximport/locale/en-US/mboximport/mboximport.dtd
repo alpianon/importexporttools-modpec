@@ -13,6 +13,7 @@
 <!ENTITY MBlabel2 "Use just alphanumeric characters in export">
 <!ENTITY allMsgsFolder "Export all messages in the folder">
 <!ENTITY asEML "EML format">
+<!ENTITY asPEC "EML format with hash list and SMIME verification">
 <!ENTITY asHTML "HTML format">
 <!ENTITY asTXT "Plain text format">
 <!ENTITY saveSelected "Save selected messages">
@@ -63,6 +64,7 @@
 <!ENTITY sdSelected "Selected">
 <!ENTITY sdFormat "Format">
 <!ENTITY sdEML "EML">
+<!ENTITY sdPEC "EML+hash list+SMIME verification">
 <!ENTITY sdHTML "HTML">
 <!ENTITY sdText "Plain text">
 <!ENTITY searchAndExport "Search and export">
@@ -81,7 +83,7 @@
 <!ENTITY importStructDescr2 "and the extension \'sbd\' will be automatically imported, if it exists.">
 <!ENTITY abortExport "Stop the current export">
 <!ENTITY allMsg "Export of all messages">
-<!ENTITY indexSettingLabel "When exporting all messages of a mail folder:">
+<!ENTITY indexSettingLabel "When exporting all messages of a mail folder (NB this option is ignored when exporting with hash list and SMIME verification):">
 <!ENTITY indexOn "create a new directory and the index of messages">
 <!ENTITY indexOff "use selected directory without index">
 <!ENTITY copyFolderPath "Copy folder path on disk">

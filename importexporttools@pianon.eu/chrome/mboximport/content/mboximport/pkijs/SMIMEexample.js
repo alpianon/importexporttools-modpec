@@ -27164,67 +27164,83 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 	//endregion
 	//*********************************************************************************
 	//region Verify SMIME signature
+	//modified (c) 2017 by Alberto Pianon
 	//*********************************************************************************
-	function verifySMIME() {
+	function verifySMIME(msg) {
 		//region Parse MIME contents to find signature and detached data
 		var parser = new MimeParser();
-		parser.write(document.getElementById("smime_message").value);
+		parser.write(msg);
 		parser.end();
 		//endregion
 
 		if ("_childNodes" in parser.node || parser.node._childNodes.length !== 2) {
 			var lastNode = parser.getNode("2");
-			if (lastNode.contentType.value === "application/x-pkcs7-signature" || lastNode.contentType.value === "application/pkcs7-signature") {
-				var _ret = function () {
+			if (lastNode !== null && (lastNode.contentType.value === "application/x-pkcs7-signature" || lastNode.contentType.value === "application/pkcs7-signature")) {
+
 					// Get signature buffer
 					var signedBuffer = utilConcatBuf(new ArrayBuffer(0), lastNode.content);
 
 					// Parse into pkijs types
 					var asn1 = fromBER(signedBuffer);
 					if (asn1.offset === -1) {
-						alert("Incorrect message format!");
-						return {
-							v: void 0
-						};
+					return Promise.resolve(mboximportbundle.GetStringFromName("SMIMEincorrectFormat"));
 					}
 
 					var cmsContentSimpl = void 0;
 					var cmsSignedSimpl = void 0;
+				var isSignerCertExpired = false;
 
 					try {
 						cmsContentSimpl = new ContentInfo({ schema: asn1.result });
 						cmsSignedSimpl = new SignedData({ schema: cmsContentSimpl.content });
+
+					// check if signer certificate has expired
+					var signerCertIssuer = JSON.stringify(cmsSignedSimpl.signerInfos[0].sid.issuer);
+					var signerCertSN = JSON.stringify(cmsSignedSimpl.signerInfos[0].sid.serialNumber);
+					var certIssuer;
+					var certSN;
+					var signerCertNotAfter = null;
+					for(var i=0; i<cmsSignedSimpl.certificates.length; i++){
+						certIssuer = JSON.stringify(cmsSignedSimpl.certificates[i].issuer);
+						certSN = JSON.stringify(cmsSignedSimpl.certificates[i].serialNumber);
+						if(certIssuer == signerCertIssuer && certSN == signerCertSN){
+							signerCertNotAfter = cmsSignedSimpl.certificates[i].notAfter.value
+							break;
+						}
+					}
+					if(!signerCertNotAfter){
+						return Promise.resolve(mboximportbundle.GetStringFromName("SMIMEcantGetCertExpDate"))
+					}
+					var today = new Date();
+					isSignerCertExpired = signerCertNotAfter < today;
+
 					} catch (ex) {
-						alert("Incorrect message format!");
-						return {
-							v: void 0
-						};
+					return Promise.resolve(mboximportbundle.GetStringFromName("SMIMEincorrectFormat"));
 					}
 
 					// Get signed data buffer
 					var signedDataBuffer = stringToArrayBuffer(parser.nodes.node1.raw.replace(/\n/g, "\r\n"));
 
 					// Verify the signed data
-					var sequence = Promise.resolve();
-					sequence = sequence.then(function () {
-						return cmsSignedSimpl.verify({ signer: 0, data: signedDataBuffer, trustedCerts: trustedCertificates });
-					});
-
-					sequence.then(function (result) {
-						var failed = false;
-						if (typeof result !== "undefined") {
-							if (result === false) failed = true;
+				try {
+					return cmsSignedSimpl.verify({
+						signer: 0, data: signedDataBuffer, trustedCerts: trustedCertificates
+					}).then(function(result){
+						if(result){
+							if(isSignerCertExpired){
+								return mboximportbundle.GetStringFromName("SMIMEexpiredCert");
+							} else {
+								return true;
 						}
-
-						alert("S/MIME message " + (failed ? "verification failed" : "successfully verified") + "!");
-					}, function (error) {
-						return alert("Error during verification: " + error);
+						} else {
+							return mboximportbundle.GetStringFromName("SMIMEfailed");
+						}
 					});
-				}();
-
-				if ((typeof _ret === "undefined" ? "undefined" : _typeof(_ret)) === "object") return _ret.v;
+				} catch (error){
+					return Promise.resolve(mboximportbundle.GetStringFromName("SMIMEverificationError")+": "+error);
 			}
-		} else alert("No child nodes!");
+			}	else return Promise.resolve(mboximportbundle.GetStringFromName("SMIMEnoSMIMEmessage"));
+		} else return Promise.resolve(mboximportbundle.GetStringFromName("SMIMEnoChildNodes"));
 	}
 	//*********************************************************************************
 	//endregion 
