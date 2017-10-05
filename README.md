@@ -20,7 +20,7 @@ Questo MOD nasce aggiunge all'addon importexporttools delle funzionalità che ai
 ## Installazione
 **Importante: se avete importexporttools (versione originale) installato, dovete disinstallarlo, prima di installare questo MOD.**
 
-Per installare importexporttools "moddato" è sufficiente scaricare il sorgente come ZIP da github, scompattarlo, copiare la cartella importexporttools@pianon.eu dentro alla sottocartella "extensions" del proprio profilo Thunderbird (in linux generalmente è `~/.thunderbird/NOMEPROFILO/extensions/`, in windows è `?????????????`) e infine riavviare Thunderbird.
+Per installare importexporttools "moddato" è sufficiente scaricare il sorgente come ZIP da github, scompattarlo, copiare la cartella `importexporttools@pianon.eu` dentro alla sottocartella "extensions" del proprio profilo Thunderbird (in linux generalmente è `~/.thunderbird/NOMEPROFILO/extensions/`, in windows è `?????????????`) e infine riavviare Thunderbird.
 
 ## Come si usa?
 Alle tradizionali opzioni di menu di importexporttools, questo MOD aggiunge un'opzione per salvare i messaggi *"come file EML con hash list e verifica SMIME (Backup PEC)"* (nella finestra "cerca ed esporta" l'opzione è indicata come *"EML+hash list+verifica SMIME"* per motivi di spazio ma la funzionalità è la stessa).
