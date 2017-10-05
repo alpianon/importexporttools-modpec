@@ -874,7 +874,15 @@ function saveMsgAsEML(msguri,file,append,uriArray,hdrArray,fileArray,imapFolder,
 				var clone = file.clone();
 				// The name is taken from the subject "corrected"
 				clone.append(sub+".eml");
-				clone.createUnique(0,0644);
+				try {
+					clone.createUnique(0,0644);
+				} catch(err) {
+					if(err.name == "NS_ERROR_FILE_NAME_TOO_LONG"){
+						alert(err.name); // TODO localized alert message
+					}
+					throw err
+				}
+        
 				var time = (hdr.dateInSeconds)*1000;
 
 				// modPEC: calculate file hash...

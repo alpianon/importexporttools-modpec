@@ -72,7 +72,9 @@
 <!ENTITY addPrefix "Aggiungi prefisso">
 <!ENTITY fileLenCaption "Lunghezza nomi dei file">
 <!ENTITY cutSub "Tronca l'oggetto a 50 caratteri">
-<!ENTITY cutFN "Tronca la lunghezza totale del percorso a 256 caratteri">
+<!ENTITY cutFN "Tronca la lunghezza totale del percorso">
+<!ENTITY at256 "a 256 caratteri">
+<!ENTITY at140 "a 140 caratteri (Ecryptfs Ubuntu home)">
 <!ENTITY sdMBOX "Mbox (nuovo)">
 <!ENTITY sdMBOX2 "Mbox (aggiungi)">
 <!ENTITY asMBOX "come file Mbox (nuovo)">

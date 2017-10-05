@@ -49,6 +49,7 @@ function getSubjectForHdr(hdr,dirPath) {
 	var mustcorrectname = IETprefs.getBoolPref("extensions.importexporttools.export.filenames_toascii");
 	var cutSubject =  IETprefs.getBoolPref("extensions.importexporttools.export.cut_subject");
 	var cutFileName = IETprefs.getBoolPref("extensions.importexporttools.export.cut_filename");
+	var cutFileNameAt = IETprefs.getIntPref("extensions.importexporttools.export.cut_filename_at");
 	var subMaxLen = cutSubject ? 50 : -1;
 
 	// Subject
@@ -104,7 +105,7 @@ function getSubjectForHdr(hdr,dirPath) {
 		fname = fname.replace(/[\/\\:,<>*\?\"\|\']/g,"_");
 		
 	if (cutFileName) {
-		var maxFN = 249 - dirPath.length;
+		var maxFN = cutFileNameAt - 7 - dirPath.length;
 		if (fname.length > maxFN)
 			fname = fname.substring(0,maxFN);
 	}

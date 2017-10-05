@@ -136,6 +136,11 @@ function initMboxImportPanel()  {
 	else 
 		document.getElementById("indexSetting").selectedIndex = 1;
 
+  if (prefs.getIntPref("extensions.importexporttools.export.cut_filename_at") == 256)
+    document.getElementById("cutFNat").selectedIndex = 0;
+  else
+    document.getElementById("cutFNat").selectedIndex = 1;
+
 	// Backup section
 	var freq = 	prefs.getIntPref("extensions.importexporttools.autobackup.frequency");
 	switch(freq) {
@@ -241,6 +246,12 @@ function saveMboxImportPrefs()   {
 		setComplexPref("extensions.importexporttools.export.filename_prefix", document.getElementById("prefixText").value);
 	prefs.setBoolPref("extensions.importexporttools.export.cut_subject", document.getElementById("cutSub").checked);
 	prefs.setBoolPref("extensions.importexporttools.export.cut_filename", document.getElementById("cutFN").checked);
+  
+  if (document.getElementById("cutFNat").selectedIndex == 0)
+    prefs.setIntPref("extensions.importexporttools.export.cut_filename_at", 256);
+  else
+    prefs.setIntPref("extensions.importexporttools.export.cut_filename_at", 140);
+  
 	prefs.setCharPref("extensions.importexporttools.export.filename_charset", document.getElementById("filenameCharset").value);
 	prefs.setCharPref("extensions.importexporttools.export.text_plain_charset", document.getElementById("charset-list").selectedItem.value);
 	prefs.setCharPref("extensions.importexporttools.csv_separator", document.getElementById("csvSep").value);
@@ -306,6 +317,10 @@ function toggleBackup(el) {
 
 function toggleSkipMsg(el) {
 	document.getElementById("skipMsg").disabled = (el.selectedIndex == 0);
+}
+
+function toggleCutFNat(el) {
+	document.getElementById("cutFNat").disabled = ! el.checked;
 }
 	
 function pickFile(el) {

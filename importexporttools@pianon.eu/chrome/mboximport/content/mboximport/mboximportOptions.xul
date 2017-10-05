@@ -143,7 +143,14 @@
     	    <checkbox id="cutSub" label="&cutSub;" /> 
        </hbox>
 	<hbox align="center">
-    	    <checkbox id="cutFN" label="&cutFN;"  /> 
+    	    <checkbox id="cutFN" label="&cutFN;" oncommand="toggleCutFNat(this)" /> 
+       </hbox>
+	<hbox>
+				<spacer width="20" />
+				<radiogroup id="cutFNat">
+					<radio label="&at256;"/>
+					<radio label="&at140;" />
+		 		</radiogroup>	
        </hbox>
 	<hbox align="center">
     	    <label value="&filenameCharset;"  />
