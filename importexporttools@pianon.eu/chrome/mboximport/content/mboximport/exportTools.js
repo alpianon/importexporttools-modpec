@@ -889,14 +889,14 @@ function saveMsgAsEML(msguri,file,append,uriArray,hdrArray,fileArray,imapFolder,
 				if(pec){
 					sha256(data).then(function(digest){
   						IEThashList.push({
-							filename: sub+".eml",
+							filename: clone.leafName, // real filename, after createUnique (could be different from sub+".eml")
 							hash: digest
 						});
 					});
 				// modPEC: ...and verify if it's a valid SMIME message
 					verifySMIME(data).then(function(result){
 						IETSMIMEcheck.push({
-							filename: sub+".eml",
+							filename: clone.leafName, // real filename, after createUnique (could be different from sub+".eml")
 							result: result,
 						});
 					});
