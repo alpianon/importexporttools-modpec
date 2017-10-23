@@ -3,6 +3,8 @@ var IETskipped;
 var IETtotal;
 var IETnosub = mboximportbundle.GetStringFromName("nosubjectmsg");
 var IETmesssubdir = mboximportbundle.GetStringFromName("messsubdir");
+var IEThashListWithFnames = mboximportbundle.GetStringFromName("HashListWithFilenamesFilename");
+
 // Values of IETsortType:
 // 0 = date+subject+recipients+author
 // 1 = subject+recipients+author+date
@@ -41,7 +43,16 @@ var IEThashList = {
       this.listWithNoFilenamesFile.append(mboximportbundle.GetStringFromName("HashListFilename"));
       this.listWithNoFilenamesFile.createUnique(0,0644);
       IETwriteDataOnDisk(this.listWithNoFilenamesFile,listWithNoFilenames,false,null,null);
-
+      
+      this.debugScriptFile = this.file.clone();
+      this.debugScriptFile.append("debug.sh");
+      this.debugScriptFile.createUnique(0,0744);
+      var script = '#!/bin/bash\n'+
+                    'echo "comparing hash list with the output of sha256sum..."\n'+
+                    'result=`diff <(cd '+IETmesssubdir+'; sha256sum * | sort; cd ..) <(cat '+IEThashListWithFnames+')`\n'+
+                    'if [ "$result" == "" ]; then echo "passed!"; else echo "error!"; fi\n'
+      IETwriteDataOnDisk(this.debugScriptFile,script,false,null,null);
+      
       this.hashListArray = [];
       this.total = 0;
       this.file = null;
