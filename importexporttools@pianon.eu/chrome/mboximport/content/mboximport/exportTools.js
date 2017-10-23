@@ -24,7 +24,7 @@ var IEThashList = {
   push: function(item) {
     this.hashListArray.push(item);
     if(this.hashListArray.length == this.total) {
-      this.hashListArray.sort(function(a,b){return a["filename"]>b["filename"]});
+      this.hashListArray.sort(function(a,b){return a["hash"]>b["hash"]});
       listWithFilenames = "";
       listWithNoFilenames = "";
       for(var i=0; i < this.hashListArray.length; i++){

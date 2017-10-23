@@ -32,7 +32,7 @@ Selezionando tale opzione, verrà creata una cartella (con il nome della cartell
 
 All'interno di questa cartella, alla fine dell'esportazione, troverete una sottocartella "messaggi" (contenente i messaggi di PEC esportati in formato EML) e due file, `lista_hash.txt` e `lista_hash_con_nomi_file.txt`: il contenuto del primo andrà inserito in apposita dichiarazione da firmare digitalmente e marcare temporalmente, il secondo andrà conservato insieme al backup come riferimento futuro (vd. più avanti il paragrafo relativo agli aspetti legali).
 
-  * **Importante**: Il contenuto del file `lista_hash_con_nomi_file.txt` è volutamente identico all'output di un comando `sha256sum *` lanciato nella sottocartella `messaggi` dentro alla cartella di backup, in modo da consentire di fare una verifica incrociata sul corretto funzionamento dell'addon.
+  * **Importante**: Il contenuto del file `lista_hash_con_nomi_file.txt` è volutamente identico all'output di un comando `sha256sum * | sort` lanciato nella sottocartella `messaggi` dentro alla cartella di backup, in modo da consentire di fare una verifica incrociata sul corretto funzionamento dell'addon.
 
 Durante l'esportazione dei messaggi di PEC, viene anche effettuata una **verifica della firma digitale del provider di PEC (Aruba, Legalmail, ecc.)** all'interno di ciascun messaggio: se la firma di alcuni messaggi non è valida o è scaduta, alla fine dell'esportazione viene visualizzato un messaggio di errore, con indicazione di guardare, per i dettagli, il file `errori_verifica_PEC.txt` nella cartella di esportazione.
 
