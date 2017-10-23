@@ -4,6 +4,8 @@ var IETtotal;
 var IETnosub = mboximportbundle.GetStringFromName("nosubjectmsg");
 var IETmesssubdir = mboximportbundle.GetStringFromName("messsubdir");
 var IEThashListWithFnames = mboximportbundle.GetStringFromName("HashListWithFilenamesFilename");
+var IETrepairedMessages = 0;
+var IETrepairedMessageNotice = mboximportbundle.GetStringFromName("RepairedMessageNotice");
 
 // Values of IETsortType:
 // 0 = date+subject+recipients+author
@@ -74,13 +76,17 @@ var IETSMIMEcheck = {
           errorList += this.SMIMEcheckArray[i].filename+"\n"+this.SMIMEcheckArray[i].result+"\n\n";
         }
       }
+      var repairedNotice = "";
+      if (IETrepairedMessages > 0){
+        repairedNotice = "\n\n"+IETrepairedMessageNotice.replace("%n", IETrepairedMessages);
+      }
       if (errorList){
-        setTimeout(function() { alert(mboximportbundle.GetStringFromName("SMIMEverificationFailed")); }, 1);
+        setTimeout(function() { alert(mboximportbundle.GetStringFromName("SMIMEverificationFailed")+repairedNotice); }, 1);
         this.file.append(mboximportbundle.GetStringFromName("SMIMEerrorsFilename"));
         this.file.createUnique(0,0644);
         IETwriteDataOnDisk(this.file,errorList,false,null,null);
       } else {
-        setTimeout(function() { alert(mboximportbundle.GetStringFromName("SMIMEverificationSuccess")); }, 1);
+        setTimeout(function() { alert(mboximportbundle.GetStringFromName("SMIMEverificationSuccess")+repairedNotice); }, 1);
       }
       this.total = 0;
       this.SMIMEcheckArray = [];
@@ -898,6 +904,10 @@ function saveMsgAsEML(msguri,file,append,uriArray,hdrArray,fileArray,imapFolder,
 
 				// modPEC: calculate file hash...
 				if(pec){
+          if (data.search('\r\r\n') != -1) {
+            IETrepairedMessages += 1;
+            data = data.replace(/\r\r\n/g, '\r\n'); // workaround for thunderbird bug in downloading some messages in IMAP folders
+          }
 					sha256(data).then(function(digest){
   						IEThashList.push({
 							filename: clone.leafName, // real filename, after createUnique (could be different from sub+".eml")
