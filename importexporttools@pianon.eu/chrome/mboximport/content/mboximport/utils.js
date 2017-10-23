@@ -503,12 +503,13 @@ function IETemlArray2hdrArray(emlsArray,needBody, file) {
 	return hdrArray;
 }
 
-//taken from here: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest
+//partally taken from here: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest
 //(code sample in the public domain: https://developer.mozilla.org/en-US/docs/MDN/About#Copyrights_and_licenses)
+// Substituted TextEncoder with function stringToUint() (see below) to solve utf8/latin encoding problems
 
 function sha256(str) {
   // We transform the string into an arraybuffer.
-  var buffer = new TextEncoder("utf-8").encode(str);
+  var buffer = stringToUint(str);
   return crypto.subtle.digest("SHA-256", buffer).then(function (hash) {
     return hex(hash);
   });
@@ -530,4 +531,15 @@ function hex(buffer) {
 
   // Join all the hex strings into one
   return hexCodes.join("");
+}
+
+// partially taken from here https://stackoverflow.com/a/17192845
+// without atob/btoa (see comments in stackoverflow) and unescape/encodeURIComponent (to solve utf8/latin encoding problems)
+function stringToUint(string) {
+    var charList = string.split(''),
+        uintArray = [];
+    for (var i = 0; i < charList.length; i++) {
+        uintArray.push(charList[i].charCodeAt(0));
+    }
+    return new Uint8Array(uintArray);
 }
