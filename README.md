@@ -22,7 +22,7 @@ L'idea è nata da una conversazione tra legali ([l'autore di questo MOD](http://
 
 **Importante: se avete importexporttools (versione originale) installato, dovete disinstallarlo, prima di installare questo MOD.**
 
-Per installare importexporttools "moddato" è sufficiente scaricare il sorgente come ZIP da github, scompattarlo, copiare la cartella `importexporttools@pianon.eu` dentro alla sottocartella "extensions" del proprio profilo Thunderbird (in linux generalmente è `~/.thunderbird/NOMEPROFILO/extensions/`, in windows è `?????????????`) e infine riavviare Thunderbird.
+Per installare importexporttools "moddato" è sufficiente scaricare il sorgente come ZIP da github, scompattarlo, copiare la cartella `importexporttools@pianon.eu` dentro alla sottocartella "extensions" del proprio profilo Thunderbird (in linux generalmente è `~/.thunderbird/NOMEPROFILO/extensions/`, in windows è `C:\Utenti\NOMEUTENTE\AppData\Roaming\Thunderbird\Profiles\NOMEPROFILO\extensions`) e infine riavviare Thunderbird. Dopo il riavvio, potrebbe essere necessario attivare l'addon, e poi riavviare nuovamente Thunderbird.
 
 ## Come si usa?
 
