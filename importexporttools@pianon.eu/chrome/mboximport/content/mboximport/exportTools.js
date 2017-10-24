@@ -32,8 +32,8 @@ var IEThashList = {
       listWithFilenames = "";
       listWithNoFilenames = "";
       for(var i=0; i < this.hashListArray.length; i++){
-        listWithFilenames += this.hashListArray[i]["hash"]+"  "+this.hashListArray[i]["filename"]+"\n";
-        listWithNoFilenames += this.hashListArray[i]["hash"]+"\n";
+        listWithFilenames += this.hashListArray[i]["hash"]+"  "+this.hashListArray[i]["filename"]+"\r\n";
+        listWithNoFilenames += this.hashListArray[i]["hash"]+"\r\n";
       }
       // save hash list with filenames
       this.listWithFilenamesFile = this.file.clone();
@@ -73,12 +73,12 @@ var IETSMIMEcheck = {
       var errorList = "";
       for(var i=0; i < this.SMIMEcheckArray.length; i++){
         if(this.SMIMEcheckArray[i].result !== true){
-          errorList += this.SMIMEcheckArray[i].filename+"\n"+this.SMIMEcheckArray[i].result+"\n\n";
+          errorList += this.SMIMEcheckArray[i].filename+"\r\n"+this.SMIMEcheckArray[i].result+"\r\n\r\n";
         }
       }
       var repairedNotice = "";
       if (IETrepairedMessages > 0){
-        repairedNotice = "\n\n"+IETrepairedMessageNotice.replace("%n", IETrepairedMessages);
+        repairedNotice = "\r\n\r\n"+IETrepairedMessageNotice.replace("%n", IETrepairedMessages);
       }
       if (errorList){
         setTimeout(function() { alert(mboximportbundle.GetStringFromName("SMIMEverificationFailed")+repairedNotice); }, 1);
