@@ -118,6 +118,7 @@ function SDexportMsg() {
 		createIndexCSV(7, file, hdrArray, null, true);	
 	}
 	else if (type == 7) { //modPEC
+		IETrepairedMessages = 0;
 		IEThashList.total = IETtotal;
 		IETSMIMEcheck.total = IETtotal;
 		var backupPECdir = file.clone();

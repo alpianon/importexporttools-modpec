@@ -88,6 +88,7 @@ var IETSMIMEcheck = {
       } else {
         setTimeout(function() { alert(mboximportbundle.GetStringFromName("SMIMEverificationSuccess")+repairedNotice); }, 1);
       }
+      IETrepairedMessages = 0;
       this.total = 0;
       this.SMIMEcheckArray = [];
     }
@@ -284,7 +285,8 @@ function exportSelectedMsgs(type) {
 			exportAsHtml(msguri,emlsArray,file,true,false,false,false,null,null,null, true);
 			break;
 		case 10: //modPEC: export selected messages with hash list and SMIME verification
-			IEThashList.total = IETtotal;
+			IETrepairedMessages = 0;
+      IEThashList.total = IETtotal;
 			IETSMIMEcheck.total = IETtotal;
 			var backupPECdir = file.clone();
 			var datedir = buildContainerDirName();
@@ -632,7 +634,8 @@ function IETrunExport(type,subfile,hdrArray,file2,msgFolder) {
 			exportAsHtml(firstUri,null,subfile,true,true,false,false,hdrArray,file2,msgFolder, true);
 			break;
 		case 10: //modPEC: export all messages with hash list and SMIME verification
-			IEThashList.total = IETtotal;
+			IETrepairedMessages = 0;
+      IEThashList.total = IETtotal;
 			IETSMIMEcheck.total = IETtotal;
 			IEThashList.file = file2.clone();
 			IETSMIMEcheck.file = file2.clone();
