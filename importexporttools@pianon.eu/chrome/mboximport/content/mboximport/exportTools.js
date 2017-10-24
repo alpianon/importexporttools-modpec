@@ -51,7 +51,7 @@ var IEThashList = {
       this.debugScriptFile.createUnique(0,0744);
       var script = '#!/bin/bash\n'+
                     'echo "comparing hash list with the output of sha256sum..."\n'+
-                    'result=`diff <(cd '+IETmesssubdir+'; sha256sum * | sort; cd ..) <(cat '+IEThashListWithFnames+')`\n'+
+                    'result=`diff --strip-trailing-cr <(cd '+IETmesssubdir+'; sha256sum * | sort; cd ..) <(cat '+IEThashListWithFnames+')`\n'+
                     'if [ "$result" == "" ]; then echo "passed!"; else echo "error!"; fi\n'
       IETwriteDataOnDisk(this.debugScriptFile,script,false,null,null);
       
