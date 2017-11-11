@@ -147,4 +147,17 @@ function SDinit() {
 }
 
 
+function uncheckIncludeSubFoldersWhenPECbackup(){
+	var ml = document.getElementsByTagName("menulist");
+	var type = ml[ml.length-1].selectedIndex;
+	if (type == 7){
+		if (document.getElementById('checkSearchSubFolders').checked==true){
+			document.getElementById('checkSearchSubFolders').checked=false;
+			alert(mboximportbundle.GetStringFromName("subfoldersIssueWarning"));
+		}
+	}
+}
+
+
+
 window.addEventListener("load", SDinit, false);

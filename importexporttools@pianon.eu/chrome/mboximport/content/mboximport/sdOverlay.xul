@@ -32,7 +32,7 @@
 	<hbox align="center">
 	<label value="&sdFormat;:" />
 	<menulist style="min-width:240px">
-		<menupopup>
+		<menupopup onpopuphiding="uncheckIncludeSubFoldersWhenPECbackup()" >
 			<menuitem label="&sdEML;"/>
 			<menuitem label="&sdHTML;"/>
 			<menuitem label="&sdText;"/>
