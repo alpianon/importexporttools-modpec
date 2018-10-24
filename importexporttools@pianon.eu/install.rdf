@@ -13,7 +13,31 @@ xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 		<em:creator>Paolo Kaosmos</em:creator>
 		<em:optionsURL>chrome://mboximport/content/mboximportOptions.xul</em:optionsURL>
 		<em:homepageURL>https://freeshell.de/~kaosmos/index-en.html</em:homepageURL>
-		
+		<em:file>			
+			<Description about="urn:mozilla:extension:file:mboximport.jar">	
+				<em:package>content/mboximport/</em:package>	
+				<em:locale>locale/en-US/mboximport/</em:locale>	
+				<em:locale>locale/ca/mboximport/</em:locale>	
+				<em:locale>locale/da/mboximport/</em:locale>	
+				<em:locale>locale/de/mboximport/</em:locale>	
+				<em:locale>locale/es-ES/mboximport/</em:locale>	
+				<em:locale>locale/fr/mboximport/</em:locale>	
+				<em:locale>locale/gl-ES/mboximport/</em:locale>	
+				<em:locale>locale/hu-HU/mboximport/</em:locale>	
+				<em:locale>locale/hy-AM/mboximport/</em:locale>	
+				<em:locale>locale/it/mboximport/</em:locale>	
+				<em:locale>locale/ja/mboximport/</em:locale>	
+				<em:locale>locale/ko-KR/mboximport/</em:locale>	
+				<em:locale>locale/nl/mboximport/</em:locale>	
+				<em:locale>locale/pl/mboximport/</em:locale>		
+				<em:locale>locale/pt-PT/mboximport/</em:locale>	
+				<em:locale>locale/ru/mboximport/</em:locale>	
+				<em:locale>locale/sk-SK/mboximport/</em:locale>	
+				<em:locale>locale/sl-SI/mboximport/</em:locale>	
+				<em:locale>locale/sv-SE/mboximport/</em:locale>	
+				<em:locale>locale/zh-CN/mboximport/</em:locale>	
+			</Description>	
+		</em:file>		
 		<em:targetApplication>
 			 <!-- Thunderbird -->
 			<Description>
