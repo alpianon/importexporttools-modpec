@@ -155,14 +155,7 @@ function openMboxDialog() {
 
 function msgFolder2LocalFile(msgFolder) {
 	if (msgFolder.filePath) 
-		// This method is much better, because it should works with every charset
-		// but it's available just in TB 1.5
 		 var LocalFile= msgFolder.filePath;
-	else {
-		// Old method that can be used with TB 1.0, but doesn't seem to work with every charset
-		var LocalFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
-		LocalFile.initWithPath(msgFolder.path.nativePath);
-	}
 	return LocalFile;
 }
 
@@ -194,8 +187,10 @@ function trytocopyMAILDIR() {
 	var fp = Components.classes["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
 	fp.init(window, mboximportbundle.GetStringFromName("filePickerImport"), nsIFilePicker.modeGetFolder);
 	fp.appendFilters(nsIFilePicker.filterAll);
-
-	var res=fp.show();
+	if (fp.show) 
+		var res = fp.show();	
+	else
+		var res = IETopenFPsync(fp);
 	var destFile = fp.file;
 	var filename=destFile.leafName;
 	var newfilename = filename;
@@ -252,7 +247,7 @@ function trytocopyMAILDIR() {
 		// copy all the files inside the MAILDIR directory to import in MAILDIR directory created above
 		while(allfiles.hasMoreElements()) {
 			var singlefile= allfiles.getNext();
-			singlefile = singlefile.QueryInterface(Components.interfaces.nsILocalFile);
+			singlefile = singlefile.QueryInterface(Components.interfaces.nsIFile);
 			singlefile.copyTo(filex,null);
 		}
 	}
@@ -270,7 +265,7 @@ function trytocopyMAILDIR() {
 }
 
 // The arguments of trytocopy are
-// file = the file to import as nsILocalFile
+// file = the file to import as nsIFile
 // filename = the name of the file to import
 // msgFolder = the folder as nsImsgFolder
 
@@ -325,7 +320,7 @@ function trytocopy(file,filename,msgFolder,keepstructure) {
 		clonex.append(newfilename);
 	}
 	// This is a little strange code, but it can find the destintation folder as nsIFile
-	// without calling nsILocalFile.initwithPath. This is done creating a new subfolder,
+	// without calling nsIFile.initwithPath. This is done creating a new subfolder,
 	// finding the parent of this temp new subfolder and deleting the subfolder itself.
 	// The 0.5.3 version did this scanning all the files into the directory, to find the directory
 	// called "msgfoldername.sbd". But this doesn't work, because there is a case when
@@ -515,13 +510,16 @@ function importmbox(scandir,keepstructure,openProfDir, recursiveMode,msgFolder) 
 			fp.displayDirectory = profDir.parent;
 		}
 
-		var res=fp.show();
+		if (fp.show) 
+			var res = fp.show();	
+		else
+			var res = IETopenFPsync(fp);
 		if (res==nsIFilePicker.returnOK){
 			// thefiles is the nsiSimpleEnumerator with the files selected from the filepicker
 			var thefiles=fp.files;
 			while(thefiles.hasMoreElements()) {
 				var onefile= thefiles.getNext();
-				onefile = onefile.QueryInterface(Components.interfaces.nsILocalFile);
+				onefile = onefile.QueryInterface(Components.interfaces.nsIFile);
 				var mboxname=onefile.leafName;
 				trytocopy(onefile,mboxname,msgFolder,keepstructure);
 			}
@@ -544,7 +542,10 @@ function importmbox(scandir,keepstructure,openProfDir, recursiveMode,msgFolder) 
 			fp.displayDirectory = profDir.parent;
 		}
 
-		var res=fp.show();
+		if (fp.show) 
+			var res = fp.show();	
+		else
+			var res = IETopenFPsync(fp);
 		if (res==nsIFilePicker.returnOK){
 			if (! recursiveMode) {
 				// allfiles is the nsiSimpleEnumerator with the files in the directory selected from the filepicker
@@ -552,7 +553,7 @@ function importmbox(scandir,keepstructure,openProfDir, recursiveMode,msgFolder) 
 				var filesArray = new Array;
 				while(allfiles.hasMoreElements()) {
 					var singlefile= allfiles.getNext();
-					singlefile = singlefile.QueryInterface(Components.interfaces.nsILocalFile);
+					singlefile = singlefile.QueryInterface(Components.interfaces.nsIFile);
 					filesArray.push(singlefile);
 				}
 			}
@@ -894,19 +895,13 @@ function importALLasEML(recursive) {
 	// Open the filepicker to choose the directory
 	fp.init(window, mboximportbundle.GetStringFromName("searchdir"), nsIFilePicker.modeGetFolder);
 	// Set the filepicker to open the last opened directory
-	try {
-		if (IETprefs.prefHasUserValue("extensions.importexporttools.import.lastdir")) 
-			fp.displayDirectory = IETprefs.getComplexValue("extensions.importexporttools.import.lastdir", Components.interfaces.nsILocalFile);
-	}
-	catch(e) {}
-	var res=fp.show();
+	if (fp.show) 
+		var res = fp.show();	
+	else
+		var res = IETopenFPsync(fp);
 	gEMLimported = 0;
 	IETwritestatus(mboximportbundle.GetStringFromName("importEMLstart")); 
 	if (res==nsIFilePicker.returnOK) {
-		try {
-			IETprefs.setComplexValue("extensions.importexporttools.import.lastdir", Components.interfaces.nsILocalFile, fp.file);
-		}
-		catch(e) {}
 		setTimeout(function(){RUNimportALLasEML(fp.file,recursive);}, 1000);
 	}
 }
@@ -933,7 +928,7 @@ function buildEMLarray(file,fol,recursive) {
 
 	while(allfiles.hasMoreElements()) {
 		var afile= allfiles.getNext();
-		afile = afile.QueryInterface(Components.interfaces.nsILocalFile);
+		afile = afile.QueryInterface(Components.interfaces.nsIFile);
 		try {
 			// https://bugzilla.mozilla.org/show_bug.cgi?id=701721 ?
 			var is_Dir = afile.isDirectory();
@@ -975,25 +970,25 @@ function importEMLs() {
 	var fp = Components.classes["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
 	fp.init(window, mboximportbundle.GetStringFromName("filePickerImportMSG"), nsIFilePicker.modeOpenMultiple);
 	// Set the filepicker to open the last opened directory
-	if(IETprefs.prefHasUserValue("extensions.importexporttools.import.lastdir")) 
-		fp.displayDirectory = IETprefs.getComplexValue("extensions.importexporttools.import.lastdir", Components.interfaces.nsILocalFile);
 	fp.appendFilter(mboximportbundle.GetStringFromName("emailFiles"), "*.eml; *.emlx; *.nws");
 	fp.appendFilter("All files", "*.*");
-	var res=fp.show();
+	if (fp.show) 
+		var res = fp.show();	
+	else
+		var res = IETopenFPsync(fp);
 	if (res==nsIFilePicker.returnOK){
 		var thefiles=fp.files;
 		var fileArray = new Array;
 		// Files are stored in an array, so that they can be imported one by one
 		while(thefiles.hasMoreElements()) {
 			var onefile= thefiles.getNext();
-			onefile = onefile.QueryInterface(Components.interfaces.nsILocalFile);
+			onefile = onefile.QueryInterface(Components.interfaces.nsIFile);
 			fileArray.push(onefile);
 		}
 		gEMLimported = 0;
 		gEMLtotal = fileArray.length;
 		IETwritestatus(mboximportbundle.GetStringFromName("importEMLstart"));
 		var dir = fileArray[0].parent;
-		IETprefs.setComplexValue("extensions.importexporttools.import.lastdir", Components.interfaces.nsILocalFile, dir);
 		trytoimportEML(fileArray[0],msgFolder,false, fileArray, false);
 	}
 }
@@ -1037,7 +1032,9 @@ var importEMLlistener = {
 			var data = header+text.substring(index);
 			var data = text;
 		}
-		catch(e) {}
+		catch(e) {
+			var data = text;
+		}
 
 		if (! this.imap) 
 			writeDataToFolder(data,this.msgFolder,this.file,this.removeFile);	
@@ -1246,7 +1243,7 @@ function IETopenFolderPath() {
 		if (msgFolder.isServer)
 			var parent = file;
 		else
-			var parent = file.parent.QueryInterface(Components.interfaces.nsILocalFile);
+			var parent = file.parent.QueryInterface(Components.interfaces.nsIFile);
 		if (! parent)
 			return;
 		try {
@@ -1274,7 +1271,10 @@ function IETimportSMS() {
 	var fp = Components.classes["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
 	fp.init(window, mboximportbundle.GetStringFromName("importSMSandroid"), nsIFilePicker.modeOpen);
 	fp.appendFilter("*.xml", "*.xml");
-	var res=fp.show();
+	if (fp.show) 
+		var res = fp.show();	
+	else
+		var res = IETopenFPsync(fp);
 	if (res==nsIFilePicker.returnOK) {
 		var msgLocalFolder = msgFolder.QueryInterface(Components.interfaces.nsIMsgLocalMailFolder);
 		var xml =fp.file;

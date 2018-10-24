@@ -9,6 +9,7 @@
     onload="autoBackup.load()"
 >
 <script type="application/x-javascript" src="chrome://mboximport/content/utils.js" />
+<script type="application/x-javascript" src="chrome://mboximport/content/mboximport.js" />
 <script type="application/x-javascript" src="chrome://mboximport/content/autobackup.js" />
 
 <stringbundleset id="stringbundleset">

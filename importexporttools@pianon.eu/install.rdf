@@ -7,52 +7,19 @@ xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 	
 		<em:id>{3ed8cc52-86fc-4613-9026-c1ef969da4c3}</em:id>
 		<em:name>ImportExportTools</em:name>
-		<em:version>3.2.4.1</em:version>
+		<em:type>2</em:type>
+		<em:version>3.3.0</em:version>
 		<em:description>Adds tools to export/import messages and folders</em:description>
 		<em:creator>Paolo Kaosmos</em:creator>
 		<em:optionsURL>chrome://mboximport/content/mboximportOptions.xul</em:optionsURL>
 		<em:homepageURL>https://freeshell.de/~kaosmos/index-en.html</em:homepageURL>
-		<em:file>
-			<Description about="urn:mozilla:extension:file:mboximport.jar">
-				<em:package>content/mboximport/</em:package>
-				<em:locale>locale/en-US/mboximport/</em:locale>
-				<em:locale>locale/ca/mboximport/</em:locale>
-				<em:locale>locale/da/mboximport/</em:locale>
-				<em:locale>locale/de/mboximport/</em:locale>
-				<em:locale>locale/es-ES/mboximport/</em:locale>
-				<em:locale>locale/fr/mboximport/</em:locale>
-				<em:locale>locale/gl-ES/mboximport/</em:locale>
-				<em:locale>locale/hu-HU/mboximport/</em:locale>
-				<em:locale>locale/hy-AM/mboximport/</em:locale>
-				<em:locale>locale/it/mboximport/</em:locale>
-				<em:locale>locale/ja/mboximport/</em:locale>
-				<em:locale>locale/ko-KR/mboximport/</em:locale>
-				<em:locale>locale/nl/mboximport/</em:locale>
-				<em:locale>locale/pl/mboximport/</em:locale>	
-				<em:locale>locale/pt-PT/mboximport/</em:locale>
-				<em:locale>locale/ru/mboximport/</em:locale>
-				<em:locale>locale/sk-SK/mboximport/</em:locale>
-				<em:locale>locale/sl-SI/mboximport/</em:locale>
-				<em:locale>locale/sv-SE/mboximport/</em:locale>
-				<em:locale>locale/zh-CN/mboximport/</em:locale>
-			</Description>
-		</em:file>
-
+		
 		<em:targetApplication>
 			 <!-- Thunderbird -->
 			<Description>
 				 <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
-        				<em:minVersion>1.0</em:minVersion>
-        				<em:maxVersion>35.*</em:maxVersion>
-			</Description>
-		</em:targetApplication>
-
-		<em:targetApplication>
-		      <!-- Postbox -->
-			<Description>
-				<em:id>postbox@postbox-inc.com</em:id>
-				<em:minVersion>1.0b13</em:minVersion>
-				<em:maxVersion>3.*</em:maxVersion>
+        				<em:minVersion>14.0</em:minVersion>
+        				<em:maxVersion>59.*</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 
@@ -61,7 +28,7 @@ xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 			<Description>
 				<em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
 				<em:minVersion>2.0</em:minVersion>
-				<em:maxVersion>2.5</em:maxVersion>
+				<em:maxVersion>2.58</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 

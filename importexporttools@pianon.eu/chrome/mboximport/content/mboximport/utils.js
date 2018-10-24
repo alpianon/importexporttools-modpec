@@ -9,6 +9,27 @@ function IETrunTimeEnable(seconds) {
 	IETprefs.setIntPref("dom.max_chrome_script_run_time", seconds);
 }
 
+function IETsetComplexPref(prefname,value) {
+	if (IETprefs.setStringPref) {
+		IETprefs.setStringPref(prefname,value);
+	}
+	else {
+		var str = Components.classes["@mozilla.org/supports-string;1"]
+			.createInstance(Components.interfaces.nsISupportsString);
+		str.data = value;
+		IETprefs.setComplexValue(prefname, Components.interfaces.nsISupportsString, str);
+	}
+}
+
+function IETgetComplexPref(prefname) {
+	var value;
+	if (IETprefs.getStringPref) 
+		value = IETprefs.getStringPref(prefname);
+	else
+		value = IETprefs.getComplexValue(prefname,Components.interfaces.nsISupportsString).data;
+	return value;
+}
+
 function getPredefinedFolder(type) {
 	// type 0 = folder
 	// type 1 = all messages
@@ -31,7 +52,7 @@ function getPredefinedFolder(type) {
 			return null;
 		else {
 			var localFile = Components.classes["@mozilla.org/file/local;1"]
-			.createInstance(Components.interfaces.nsILocalFile);
+			.createInstance(Components.interfaces.nsIFile);
 			localFile.initWithPath(dirPathValue);
 			if (localFile.exists())
 				return localFile;
@@ -166,7 +187,10 @@ function IETexport_all(just_mail) {
 	var nsIFilePicker = Components.interfaces.nsIFilePicker;
 	var fp = Components.classes["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
 	fp.init(window, mboximportbundle.GetStringFromName("filePickerExport"), nsIFilePicker.modeGetFolder);
-	var res=fp.show();
+	if (fp.show) 
+		var res = fp.show();	
+	else
+		var res = IETopenFPsync(fp);
 	if (res==nsIFilePicker.returnOK) 
 		var file = fp.file;
 	else
@@ -216,10 +240,20 @@ function saveExternalMailFolders(file) {
 	file.create(1,0775);
 	var servers = Components.classes["@mozilla.org/messenger/account-manager;1"]
 	.getService(Components.interfaces.nsIMsgAccountManager).allServers;
-	var cntServers = servers.Count();
+	if (servers.Count) {
+		var nsIArray = false;
+		var cntServers = servers.Count();
+	}
+	else {
+		var nsIArray = true;
+		var cntServers = servers.length;
+	}
 	// Scan servers storage path on disk
 	for (var i = 0; i < cntServers; ++i) {
-		var serverFile = servers.GetElementAt(i).QueryInterface(Components.interfaces.nsIMsgIncomingServer).localPath;
+		if (nsIArray) 
+			var serverFile = servers.queryElementAt(i, Components.interfaces.nsIMsgIncomingServer).localPath;	
+		else
+			var serverFile = servers.GetElementAt(i).QueryInterface(Components.interfaces.nsIMsgIncomingServer).localPath;
 		var parentDir = null;
 		if (serverFile.parent && serverFile.parent.parent)
 			parentDir = serverFile.parent.parent;
@@ -375,20 +409,53 @@ function IETgetExt(type) {
 		return ".txt";
 }
 
+function IETopenFPsync(fp) {
+	let done = false;
+	let rv, result;
+	fp.open(result => {
+		rv = result;
+		done = true;
+	});
+	let thread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
+	while (!done) {
+		thread.processNextEvent(true);
+	}
+	return rv;
+}
+
+// credit for this code to Jorg K
+// see https://bugzilla.mozilla.org/show_bug.cgi?id=1427722
 function IETgetPickerModeFolder() {
 	var dir = null;
 	var nsIFilePicker = Components.interfaces.nsIFilePicker;
 	var fp = Components.classes["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
 	fp.init(window, mboximportbundle.GetStringFromName("filePickerExport"), nsIFilePicker.modeGetFolder);
-	var res=fp.show();
+	if (fp.show) 
+		var res = fp.show();	
+	else
+		var res = IETopenFPsync(fp);
 	if (res==nsIFilePicker.returnOK) {
-		dir = fp.file;
-		if ( ! dir.isWritable()) {
+		dir = fp.file;		
+		if (dir && ! dir.isWritable()) {
 			alert(mboximportbundle.GetStringFromName("nowritable")); 
 			dir = null;
 		}
 	}
 	return dir;
+}
+
+function IETpickFile(el) {
+	var box = el.previousSibling;
+	var nsIFilePicker = Components.interfaces.nsIFilePicker;
+	var fp = Components.classes["@mozilla.org/filepicker;1"]
+		.createInstance(nsIFilePicker);
+	fp.init(window, "", nsIFilePicker.modeGetFolder);
+	if (fp.show) 
+		var res = fp.show();	
+	else
+		var res = IETopenFPsync(fp);
+	if (res == nsIFilePicker.returnOK)			
+		box.value = fp.file.path;
 }
 
 function IETemlx2eml(file) {
@@ -443,18 +510,6 @@ function IETstoreFormat() {
 	}
 	catch(e) {}
 	return storeFormat;
-}
-
-function IETpickFile(el) {
-	var nsIFilePicker = Components.interfaces.nsIFilePicker;
-	var fp = Components.classes["@mozilla.org/filepicker;1"]
-		.createInstance(nsIFilePicker);
-	fp.init(window, "", nsIFilePicker.modeGetFolder);
-	var res = fp.show();
- 	if (res == nsIFilePicker.returnOK) {
-		var box = el.previousSibling;
-		box.value = fp.file.path;
-	}
 }
 
 function IETgetSelectedMessages() {
