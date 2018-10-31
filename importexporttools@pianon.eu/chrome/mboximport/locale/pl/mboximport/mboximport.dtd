@@ -70,9 +70,7 @@
 <!ENTITY addPrefix "Dodaj prefiks">
 <!ENTITY fileLenCaption "Długość nazw plików">
 <!ENTITY cutSub "Skracaj temat, gdy jest dłuższy niż 50 znaków">
-<!ENTITY cutFN "Skracaj ścieżkę, gdy jest dłuższa niż">
-<!ENTITY at256 "256 znaków">
-<!ENTITY at140 "140 znaków (Ecryptfs Ubuntu home)">
+<!ENTITY cutFN "Skracaj ścieżkę, gdy jest dłuższa niż 256 znaków">
 <!ENTITY sdMBOX "Mbox (nowy)">
 <!ENTITY sdMBOX2 "Mbox (dołącz)">
 <!ENTITY asMBOX "jako plik mbox (nowy)">

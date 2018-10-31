@@ -70,9 +70,7 @@
 <!ENTITY addPrefix "添加前缀">
 <!ENTITY fileLenCaption "文件名长度">
 <!ENTITY cutSub "标题超过50个字符时截断">
-<!ENTITY cutFN "完整文件路径超过">
-<!ENTITY at256 "256个字符时截断">
-<!ENTITY at140 "140个字符时截断 (Ecryptfs Ubuntu home)">
+<!ENTITY cutFN "完整文件路径超过256个字符时截断">
 <!ENTITY sdMBOX "Mbox">
 <!ENTITY sdMBOX2 "Mbox （附加）">
 <!ENTITY asMBOX "作为 Mbox 文件（新建）">

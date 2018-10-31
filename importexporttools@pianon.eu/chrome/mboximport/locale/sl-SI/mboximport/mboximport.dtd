@@ -70,9 +70,7 @@
 <!ENTITY addPrefix "Dodaj predpono">
 <!ENTITY fileLenCaption "Dolžina imen datotek">
 <!ENTITY cutSub "Prireži zadevo na 50 znakov">
-<!ENTITY cutFN "Prireži celotno dolžino poti datoteke na">
-<!ENTITY at256 "256 znakov">
-<!ENTITY at140 "140 znakov (Ecryptfs Ubuntu home)">
+<!ENTITY cutFN "Prireži celotno dolžino poti datoteke na 256 znakov">
 <!ENTITY sdMBOX "Mbox (novo)">
 <!ENTITY sdMBOX2 "Mbox (pripni)">
 <!ENTITY asMBOX "kot datoteko Mbox (novo)">

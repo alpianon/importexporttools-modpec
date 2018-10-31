@@ -70,9 +70,7 @@
 <!ENTITY addPrefix "접두사 추가">
 <!ENTITY fileLenCaption "파일명 길이">
 <!ENTITY cutSub "50자로 제목 자르기">
-<!ENTITY cutFN "완료 파일 경로 길이 자르기">
-<!ENTITY at256 "256자로">
-<!ENTITY at140 "140자로 (Ecryptfs Ubuntu home)">
+<!ENTITY cutFN "256자로 완료 파일 경로 길이 자르기">
 <!ENTITY sdMBOX "Mbox(새 파일)">
 <!ENTITY sdMBOX2 "Mbox(추가)">
 <!ENTITY asMBOX "Mbox 파일로(새 파일)">

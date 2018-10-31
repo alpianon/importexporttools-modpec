@@ -71,8 +71,6 @@
 <!ENTITY fileLenCaption "Filnamnslängd">
 <!ENTITY cutSub "Kapa ämnesraden efter 50 tecken">
 <!ENTITY cutFN "Kapa den fullständiga filsökvägen efter 256 tecken">
-<!ENTITY at256 "256 tecken">
-<!ENTITY at140 "140 tecken (Ecryptfs Ubuntu home)">
 <!ENTITY sdMBOX "MBOX (ny)">
 <!ENTITY sdMBOX2 "MBOX (bifoga)">
 <!ENTITY asMBOX "som MBOX-fil (ny)">

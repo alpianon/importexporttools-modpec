@@ -28,7 +28,10 @@ var IETimportWizard = {
 		var fp = Components.classes["@mozilla.org/filepicker;1"]
 			.createInstance(nsIFilePicker);
 		fp.init(window, IETimportWizard.bundle.GetStringFromName("pickProfile"), nsIFilePicker.modeGetFolder);
+		if (fp.show) 
 		var res = fp.show();
+		else
+			var res = IETopenFPsync(fp);
  		if (res == nsIFilePicker.returnOK) {
 			var testFile = fp.file.clone();
 			testFile.append("prefs.js");

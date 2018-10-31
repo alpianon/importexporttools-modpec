@@ -70,9 +70,7 @@
 <!ENTITY addPrefix "Tilføj præfiks">
 <!ENTITY fileLenCaption "Filnavnes længde">
 <!ENTITY cutSub "Klip emne ved 50 tegn">
-<!ENTITY cutFN "Klip den fulde filsti ved længde på">
-<!ENTITY at256 "256 tegn">
-<!ENTITY at140 "140 tegn (Ecryptfs Ubuntu home)">
+<!ENTITY cutFN "Klip den fulde filsti ved længde på 256 tegn">
 <!ENTITY sdMBOX "Mbox (ny)">
 <!ENTITY sdMBOX2 "Mbox (tilføj)">
 <!ENTITY asMBOX "Som mbox-fil (ny)">

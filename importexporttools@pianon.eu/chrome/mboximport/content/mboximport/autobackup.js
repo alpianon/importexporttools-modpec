@@ -38,7 +38,7 @@ var autoBackup = {
 		try {
 			var dir = gBackupPrefBranch.getCharPref("extensions.importexporttools.autobackup.dir");
 			var file = Components.classes["@mozilla.org/file/local;1"]
-				.createInstance(Components.interfaces.nsILocalFile); 
+				.createInstance(Components.interfaces.nsIFile); 
 			file.initWithPath(dir); 
 			if (! file.exists() || ! file.isDirectory())
 				file = null;
@@ -47,16 +47,7 @@ var autoBackup = {
 			var file = null;
 		}
 		if (! file) {
-			var nsIFilePicker = Components.interfaces.nsIFilePicker;
-			var fp = Components.classes["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
-			var strbundle = document.getElementById("strings");
-			fp.init(window, strbundle.getString("fpTitle"), nsIFilePicker.modeGetFolder);
-			var res=fp.show();
-			if (res==nsIFilePicker.returnOK) 
-				file = fp.file;
-			else
-				return null;
-			// opener.autoBackup.filePicker = true;
+			file = IETgetPickerModeFolder();
 			autoBackup.filePicker = true;
 		}
 		return file;
@@ -172,7 +163,7 @@ var autoBackup = {
 			var filepath = destDir.path;
 			var newpath = entrypath.replace(root.path,filepath);
 			var LF = Components.classes["@mozilla.org/file/local;1"]
-				.createInstance(Components.interfaces.nsILocalFile);
+				.createInstance(Components.interfaces.nsIFile);
 			LF.initWithPath(newpath);
 			var LFclone = LF.clone();
 			LFclone.append(entry.leafName);

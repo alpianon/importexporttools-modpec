@@ -70,9 +70,7 @@
 <!ENTITY addPrefix "Pridať príponu">
 <!ENTITY fileLenCaption "Dĺžka názvov súborov">
 <!ENTITY cutSub "Prilepiť predmet - 50 znakov">
-<!ENTITY cutFN "Prilepiť kompletný názov s dĺžkou>
-<!ENTITY at256 "256 znakov"">
-<!ENTITY at140 "140 znakov" (Ecryptfs Ubuntu home)">
+<!ENTITY cutFN "Prilepiť kompletný názov s dĺžkou 256 znakov">
 <!ENTITY sdMBOX "Mbox">
 <!ENTITY sdMBOX2 "Mbox (rozšíriť)">
 <!ENTITY asMBOX "ako súbor Mbox (nový)">

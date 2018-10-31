@@ -42,7 +42,10 @@ function SDexportMsg() {
 	else if (type == 5) {
 		fp.init(window, mboximportbundle.GetStringFromName("filePickerAppend"), nsIFilePicker.modeOpen);
 		fp.appendFilters(nsIFilePicker.filterAll);
+		if (fp.show) 
 		var res=fp.show();
+		else
+			var res = IETopenFPsync(fp);
 		if (res==nsIFilePicker.returnOK) { 
 			var  file = fp.file;
 			if (isMbox(file) != 1) {
@@ -59,7 +62,10 @@ function SDexportMsg() {
 		
 	if (! file) {
 		fp.init(window, mboximportbundle.GetStringFromName("filePickerExport"), nsIFilePicker.modeGetFolder);
+		if (fp.show) 
 		var res=fp.show();
+		else
+			var res = IETopenFPsync(fp);
 		if (res==nsIFilePicker.returnOK) 
 			file = fp.file;
 		else

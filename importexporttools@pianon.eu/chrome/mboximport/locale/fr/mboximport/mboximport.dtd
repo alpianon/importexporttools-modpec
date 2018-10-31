@@ -70,9 +70,7 @@
 <!ENTITY addPrefix "Ajout de préfixe">
 <!ENTITY fileLenCaption "Longueur du nom des fichiers">
 <!ENTITY cutSub "Limiter le sujet à 50 caractères">
-<!ENTITY cutFN "Limiter la longueur totale de l'emplacement du fichier">
-<!ENTITY at256 "à 256 caractères">
-<!ENTITY at140 "à 140 caractères (Ecryptfs Ubuntu home)">
+<!ENTITY cutFN "Limiter la longueur totale de l'emplacement du fichier à 256 caractères">
 <!ENTITY sdMBOX "Mbox (nouveau)">
 <!ENTITY sdMBOX2 "MBox (ajout)">
 <!ENTITY asMBOX "comme fichier MBox (nouveau)">

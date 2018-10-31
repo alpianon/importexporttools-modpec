@@ -70,9 +70,7 @@
 <!ENTITY addPrefix "Afegeix el prefix">
 <!ENTITY fileLenCaption "Longitud de noms de fitxer">
 <!ENTITY cutSub "Retalla l\'assumpte a 50 caràcters">
-<!ENTITY cutFN "Retalla la longitud del camí complet al fitxer:">
-<!ENTITY at256 "a 256 caràcters">
-<!ENTITY at140 "a 140 caràcters (Ecryptfs Ubuntu home)">
+<!ENTITY cutFN "Retalla la longitud del camí complet al fitxer a 256 caràcters">
 <!ENTITY sdMBOX "Mbox (nou)">
 <!ENTITY sdMBOX2 "Mbox (afegeix)">
 <!ENTITY asMBOX "com a fitxer Mbox (nou)">

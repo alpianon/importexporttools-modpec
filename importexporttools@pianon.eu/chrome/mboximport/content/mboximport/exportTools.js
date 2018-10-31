@@ -149,9 +149,9 @@ function selectVirtualFolder() {
 }
 
 function IETabortExport() {
-	document.getElementById("IETabortIcon").collapsed = true;
 	IETabort = true;
 	IETwritestatus(mboximportbundle.GetStringFromName("exportAborted"));
+	document.getElementById("IETabortIcon").collapsed = true;
 }
 
 function exportSelectedMsgs(type) {
@@ -205,7 +205,10 @@ function exportSelectedMsgs(type) {
 		else
 			fp.init(window, mboximportbundle.GetStringFromName("filePickerExport"), nsIFilePicker.modeGetFolder);
 
+		if (fp.show) 
 		var res=fp.show();
+		else
+			var res = IETopenFPsync(fp);
 		if (res==nsIFilePicker.returnOK) 
 			file = fp.file;
 		else
@@ -308,7 +311,7 @@ function exportSelectedMsgs(type) {
 		var hdrArray = IETemlArray2hdrArray(emlsArray, false, file);
 		createIndex(type, file, hdrArray, msgFolder, false, false);
 	}
-	if (type != 5 && type != 6 && type != 7)
+	if (type != 5 && type != 6 && type != 7 && document.getElementById("IETabortIcon"))
 		document.getElementById("IETabortIcon").collapsed = false;
 	IETabort = false;
 }
@@ -341,7 +344,10 @@ function exportAllMsgs(type) {
 		var nsIFilePicker = Components.interfaces.nsIFilePicker;
 		var fp = Components.classes["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
 		fp.init(window, mboximportbundle.GetStringFromName("filePickerExport"), nsIFilePicker.modeGetFolder);
+		if (fp.show) 
 		var res=fp.show();
+		else
+			var res = IETopenFPsync(fp);
 		if (res==nsIFilePicker.returnOK) 
 			file = fp.file;
 		else
@@ -646,8 +652,8 @@ function IETrunExport(type,subfile,hdrArray,file2,msgFolder) {
 			saveMsgAsEML(firstUri,subfile,false,null,hdrArray,null,false, false, file2,msgFolder,false);
 	}
 	if (type != 3 && type !=5 && type !=6) {
-		document.getElementById("IETabortIcon").collapsed = false;  
 		IETabort = false;
+		document.getElementById("IETabortIcon").collapsed = false;  
 	}
 }
 
@@ -983,10 +989,10 @@ function saveMsgAsEML(msguri,file,append,uriArray,hdrArray,fileArray,imapFolder,
 					else
 						exportAllMsgsStart(0,IETglobalFile,IETglobalMsgFolders[IETglobalMsgFoldersExported]);
 				}
-				else
+				else if (document.getElementById("IETabortIcon"))
 					document.getElementById("IETabortIcon").collapsed = true;
 			}
-			else
+			else if (document.getElementById("IETabortIcon"))
 				document.getElementById("IETabortIcon").collapsed = true;
 		}
 	},
@@ -1068,7 +1074,7 @@ function exportAsHtml(uri,uriArray,file,convertToText,allMsgs,copyToClip,append,
 						var success = true;
 						if (att.url.indexOf("file") == 0) {  // Detached attachments
 							try {
-								var localFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+								var localFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsIFile);
 								var attURL = decodeURIComponent(att.url.replace(/\?part.+/, ""));
 								attURL = attURL.replace("file://", "");
 								localFile.initWithPath(attURL);
@@ -1126,6 +1132,7 @@ function exportAsHtml(uri,uriArray,file,convertToText,allMsgs,copyToClip,append,
 				IETexported = IETexported + 1;
 				IETwritestatus(mboximportbundle.GetStringFromName("exported")+" "+IETexported+" "+mboximportbundle.GetStringFromName("msgs")+" "+(IETtotal+IETskipped));
 				if (IETexported == IETtotal) {
+					if (document.getElementById("IETabortIcon"))
 					document.getElementById("IETabortIcon").collapsed = true;
 					return;			
 				}	
@@ -1250,7 +1257,7 @@ function exportAsHtml(uri,uriArray,file,convertToText,allMsgs,copyToClip,append,
 				IETglobalMsgFoldersExported = IETglobalMsgFoldersExported + 1;
 				if (IETglobalMsgFoldersExported && IETglobalMsgFoldersExported < IETglobalMsgFolders.length) 
 					exportAllMsgsStart(type,IETglobalFile,IETglobalMsgFolders[IETglobalMsgFoldersExported]);
-				else
+				else if (document.getElementById("IETabortIcon"))
 					document.getElementById("IETabortIcon").collapsed = true;
 			}
 		}
@@ -1403,7 +1410,10 @@ function exportVirtualFolderDelayed(msgFolder) {
 		var nsIFilePicker = Components.interfaces.nsIFilePicker;
 		var fp = Components.classes["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
 		fp.init(window, mboximportbundle.GetStringFromName("filePickerExport"), nsIFilePicker.modeGetFolder);
+		if (fp.show) 
 		var res=fp.show();
+		else
+			var res = IETopenFPsync(fp);
 		if (res==nsIFilePicker.returnOK) 
 			file = fp.file;
 		else

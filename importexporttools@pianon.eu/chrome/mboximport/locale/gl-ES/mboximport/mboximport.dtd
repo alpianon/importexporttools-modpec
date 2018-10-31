@@ -70,9 +70,7 @@
 <!ENTITY addPrefix "Engadir prefixo">
 <!ENTITY fileLenCaption "Tamaño dos nomes de ficheiro">
 <!ENTITY cutSub "Cortar o asunto despois dos 50 caracteres">
-<!ENTITY cutFN "Cortar a lonxitude da ruta do ficheiro">
-<!ENTITY at256 "a 256 caracteres">
-<!ENTITY at140 "a 140 caracteres (Ecryptfs Ubuntu home)">
+<!ENTITY cutFN "Cortar a lonxitude da ruta do ficheiro a 256 caracteres">
 <!ENTITY sdMBOX "MBOX">
 <!ENTITY sdMBOX2 "Mbox(anexar)">
 <!ENTITY asMBOX "como ficheiro Mbox(novo)">

@@ -70,9 +70,7 @@
 <!ENTITY addPrefix "Հավելել նախածանց">
 <!ENTITY fileLenCaption "Ֆայլերի անունների երկարությունը">
 <!ENTITY cutSub "Կտրել վերնագիրը 50 նիշի">
-<!ENTITY cutFN "Կտրել ֆայլի ամբողջական ճ-ի երկարությունը">
-<!ENTITY at256 "256 նիշի">
-<!ENTITY at140 "140 նիշի (Ecryptfs Ubuntu home)">
+<!ENTITY cutFN "Կտրել ֆայլի ամբողջական ճ-ի երկարությունը 256 նիշի">
 <!ENTITY sdMBOX "Mbox (նոր)">
 <!ENTITY sdMBOX2 "Mbox (ավելացնել)">
 <!ENTITY asMBOX "որպես Mbox ֆայլ (նոր)">
