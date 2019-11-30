@@ -1,5 +1,9 @@
 # importexporttools_modPEC
 
+>**NOTA IMPORTANTE**
+>
+>Questo è un MOD del vecchio addon ImportExportTools, che non funziona più con le nuove versioni di Thunderbird (68+), e pertanto non viene più mantenuto nè sviluppato. Il MOD del nuovo addon ImportExportTools NG è disponibile [qui](https://github.com/alpianon/import-export-tools-ng-modpec).
+
 ## Note for non-Italian users
 This is a MOD of a well-known Thunderbird Addon,
 specifically intended to add functionalities to backup [Italian certified email messages](https://en.wikipedia.org/wiki/Certified_email) and preserve their legal value as digitally signed documents.
